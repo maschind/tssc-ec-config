@@ -24,12 +24,11 @@ description: >-
 
 sources:
   - name: Default
-    data:
-      - github.com/release-engineering/rhtap-ec-policy//data
-      - oci::quay.io/konflux-ci/tekton-catalog/data-acceptable-bundles:latest
     policy:
-      # Let's not pin the digest here
-      - oci::quay.io/enterprise-contract/ec-release-policy:latest
+      - github.com/enterprise-contract/ec-policies//policy/lib
+      - github.com/enterprise-contract/ec-policies//policy/release
+    data:
+      - github.com/enterprise-contract/ec-policies//data
 
     # policy:
     #   - github.com/redhat-gpe/ec-policies//policy/lib
@@ -40,15 +39,7 @@ sources:
     
     config:
       include:
+        - '@slsa1'
+        - '@slsa2'
         - '@slsa3'
-        - '@cve_blockers'
       exclude: []
-    ruleData:
-      #
-      # Make high sev CVEs non-blocking temporarily
-      # Remove this when https://issues.redhat.com/browse/EC-927 is resolved
-      #
-      # (The default here is [critical,high])
-      restrict_cve_security_levels: [critical,high]
-      # (The default here is [])
-      warn_cve_security_levels: [high]
