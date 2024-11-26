@@ -40,5 +40,6 @@ sources:
     
     config:
       include:
-        - '@slsa3'
+        # - '@slsa3'
+        - '@redhat'
       exclude: []
