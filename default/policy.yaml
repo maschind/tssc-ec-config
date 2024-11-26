@@ -13,28 +13,32 @@
 #       value: github.com/enterprise-contract/config//default
 #     ...
 #
-description: 'Custom pre-merge policy for ec-cli'
-publicKey: 'k8s://openshift-pipelines/public-key'
+name: Default
+description: >-
+  Includes rules for levels 1, 2 & 3 of SLSA v0.1. This is the default config used for new Konflux applications.
+  Available collections are defined in
+  https://redhat-appstudio.github.io/docs.stonesoup.io/ec-policies/release_policy.html#_available_rule_collections.
+  If a different policy configuration is desired, this resource can serve as a starting point.
+  See the docs on how to include and exclude rules
+  https://redhat-appstudio.github.io/docs.stonesoup.io/ec-policies/policy_configuration.html#_including_and_excluding_rules.
+
 sources:
-  - name: Release Policies
+  - name: Default
     data:
       - github.com/release-engineering/rhtap-ec-policy//data
       - oci::quay.io/konflux-ci/tekton-catalog/data-acceptable-bundles:latest
     policy:
       # Let's not pin the digest here
       - oci::quay.io/enterprise-contract/ec-release-policy:latest
+
+    # policy:
+    #   - github.com/redhat-gpe/ec-policies//policy/lib
+    #   - github.com/redhat-gpe/ec-policies//policy/release
+    # data:
+    #   - oci::quay.io/redhat-appstudio-tekton-catalog/data-acceptable-bundles:1714135376
+    #   - github.com/redhat-gpe/rhtap-ec-policy//data
+    
     config:
       include:
-        - '@redhat'
-      exclude:
-        # Not currently doing hermetic builds, see https://issues.redhat.com/browse/EC-360
-        - hermetic_build_task.*
-    ruleData:
-      #
-      # Make high sev CVEs non-blocking temporarily
-      # Remove this when https://issues.redhat.com/browse/EC-927 is resolved
-      #
-      # (The default here is [critical,high])
-      restrict_cve_security_levels: [critical]
-      # (The default here is [])
-      warn_cve_security_levels: [high]
+        - '@slsa3'
+      exclude: []
