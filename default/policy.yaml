@@ -41,5 +41,5 @@ sources:
     config:
       include:
         - '@slsa3'
-        - '@cve_blocker'
+        - 'cve_blockers'
       exclude: []
