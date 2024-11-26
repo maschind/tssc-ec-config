@@ -40,7 +40,7 @@ sources:
     
     config:
       include:
-        - '@minimal'
         - '@slsa3'
+        - 'cve.cve_blockers'
       exclude: []
 
