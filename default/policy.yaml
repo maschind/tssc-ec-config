@@ -40,7 +40,7 @@ sources:
     
     config:
       include:
-        - '@slsa3'
+        - '@redhat'
         - 'cve.cve_blockers'
       exclude: []
 
