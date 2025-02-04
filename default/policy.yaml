@@ -43,4 +43,13 @@ sources:
         - '@slsa3'
         - 'cve.cve_blockers'
       exclude: []
+    ruleData:
+      #
+      # Make high sev CVEs non-blocking temporarily
+      # Remove this when https://issues.redhat.com/browse/EC-927 is resolved
+      #
+      # (The default here is [critical,high])
+      restrict_cve_security_levels: [critical]
+      # (The default here is [])
+      warn_cve_security_levels: [high]
 
